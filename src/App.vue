@@ -223,7 +223,7 @@ export default {
       optionData: [
         {
           name: "返修设备", //蓝色
-          value: 0,
+          value: 100,
           itemStyle: {
             color: "rgba(0, 183, 255, 1)",
           },
@@ -231,7 +231,7 @@ export default {
         },
         {
           name: "领用设备", //绿色
-          value: 0,
+          value: 200,
           itemStyle: {
             color: "rgba(101, 245, 255, 1)",
           },
@@ -239,7 +239,7 @@ export default {
         },
         {
           name: "实有设备", //橙色
-          value: 0,
+          value: 300,
           itemStyle: {
             color: "rgba(253, 83, 40, 1)",
           },
@@ -247,7 +247,7 @@ export default {
         },
         {
           name: "应有设备", //黄色
-          value: 0,
+          value: 40,
           itemStyle: {
             color: "rgba(255, 225, 50, 1)",
           },
@@ -485,7 +485,7 @@ export default {
               return (
                 `${params.seriesName}<br/>` +
                 `<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${params.color};"></span>` +
-                `${bfb}`
+                `${bfb + "%"}`
               );
             }
           },
@@ -771,8 +771,6 @@ export default {
   },
   mounted() {
     this.$nextTick(function () {
-      this.init();
-      console.log("init初始化");
       this.get_total_data();
       this.get_circle_num();
       this.get_data();

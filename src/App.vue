@@ -69,10 +69,9 @@
             >
               <img class="left_charts_row_icon" :src="row.icon" />
               <div class="left_charts_row_title">
-                <span style="margin-right: 15px;">{{ row.name }}</span>
+                <span style="margin-right: 15px">{{ row.name }}</span>
                 <span>{{ row.value }}</span>
               </div>
-             
             </div>
           </div>
         </div>
@@ -82,7 +81,9 @@
             <div class="bottom_view_row">
               <img class="bottom_view_row_icon" :src="a10" alt="" />
               <div class="bottom_view_row_info_view">
-                <div class="bottom_view_row_info_num">{{ temperatyre + "℃" }}</div>
+                <div class="bottom_view_row_info_num">
+                  {{ temperatyre + "℃" }}
+                </div>
                 <div class="bottom_view_row_info_title">温度</div>
               </div>
             </div>
@@ -139,10 +140,12 @@
         >
           <div
             :class="i % 2 == 0 ? 'list_row_s' : 'list_row'"
-            v-for="(row,i) in storageList"
-            :key="row.id?row.id:i"
+            v-for="(row, i) in storageList"
+            :key="row.id ? row.id : i"
           >
-            <div class="list_row_one_view">{{ row.storagePerson }}</div>
+            <div class="list_row_one_view">
+              {{ row.storagePerson }}
+            </div>
             <div class="list_row_two_view">{{ row.storageTime }}</div>
             <div class="list_row_three_view">{{ row.storageGoods }}</div>
           </div>
@@ -198,7 +201,7 @@ export default {
   },
   data() {
     return {
-      storeroomNumber:"000001",
+      storeroomNumber: "000001",
       back_image: back_image,
       logo_image: logo_image,
       a1: a1,
@@ -212,14 +215,14 @@ export default {
       a10: a10,
       a11: a11,
       a12: a12,
-      storageList:[],
-      temperatyre:"",
-      humidity:"0",
-      network:"0",
+      storageList: [],
+      temperatyre: "",
+      humidity: "0",
+      network: "0",
 
-      totalNumber:"0",
-      totalWarning:"0",
-      lyWarning:"0",
+      totalNumber: "0",
+      totalWarning: "0",
+      lyWarning: "0",
       optionData: [
         {
           name: "返修设备", //蓝色
@@ -260,30 +263,30 @@ export default {
     get_circle_num() {
       var that = this;
       axios
-        .post(this.$apiUrl  + "/api/panel/get_circle_num", {
-          storeroomNumber: this.storeroomNumber
+        .post(this.$apiUrl + "/api/panel/get_circle_num", {
+          storeroomNumber: this.storeroomNumber,
         })
         .then((response) => {
           console.log(response.data);
           let res_data = response.data.data;
-          let arr =  that.optionData.slice();
+          let arr = that.optionData.slice();
           that.optionData = [];
           for (let i = 0; i < arr.length; i++) {
             let optionData_row = arr[i];
             //颜色
             if (optionData_row.name == "实有设备") {
-              optionData_row.value = res_data.syQuantity
+              optionData_row.value = res_data.syQuantity;
             } else if (optionData_row.name == "应有设备") {
-              optionData_row.value = res_data.yyQuantity
+              optionData_row.value = res_data.yyQuantity;
             } else if (optionData_row.name == "领用设备") {
-              optionData_row.value = res_data.lyQuantity
+              optionData_row.value = res_data.lyQuantity;
             } else if (optionData_row.name == "返修设备") {
-              optionData_row.value = res_data.fxQuantity
+              optionData_row.value = res_data.fxQuantity;
             }
             that.$set(that.optionData, i, optionData_row);
           }
-          
-          that.init()
+
+          that.init();
         })
         .catch((error) => {
           console.error(error);
@@ -293,13 +296,13 @@ export default {
       var that = this;
       axios
         .post(this.$apiUrl + "/api/panel/get_total_data", {
-          storeroomNumber: this.storeroomNumber
+          storeroomNumber: this.storeroomNumber,
         })
         .then((response) => {
           console.log(response.data);
-          that.totalNumber = response.data.data.totalNumber
-          that.totalWarning = response.data.data.totalWarning
-          that.lyWarning = response.data.data.lyWarning
+          that.totalNumber = response.data.data.totalNumber;
+          that.totalWarning = response.data.data.totalWarning;
+          that.lyWarning = response.data.data.lyWarning;
         })
         .catch((error) => {
           console.error(error);
@@ -308,15 +311,15 @@ export default {
     get_data() {
       var that = this;
       axios
-        .post(this.$apiUrl  + "/api/panel/get_data", {
-          storeroomNumber: this.storeroomNumber
+        .post(this.$apiUrl + "/api/panel/get_data", {
+          storeroomNumber: this.storeroomNumber,
         })
         .then((response) => {
           console.log(response.data);
-          that.storageList = response.data.data.storageList
-          that.temperatyre = response.data.data.temperatyre
-          that.humidity = response.data.data.humidity
-          that.network = response.data.data.network
+          that.storageList = response.data.data.storageList;
+          that.temperatyre = response.data.data.temperatyre;
+          that.humidity = response.data.data.humidity;
+          that.network = response.data.data.network;
         })
         .catch((error) => {
           console.error(error);
@@ -522,7 +525,7 @@ export default {
         },
         series: series,
       };
-    
+
       return option;
     },
 
@@ -835,7 +838,6 @@ body html {
   right: 45px;
   top: 30px;
   width: 150px;
- 
 }
 .leftChartsRowView {
   position: relative;
@@ -843,23 +845,22 @@ body html {
   width: 100%;
   margin-bottom: 16px;
 }
-.left_charts_row_icon{
+.left_charts_row_icon {
   position: absolute;
   left: 0;
   top: 0;
   width: 82px;
   height: 100%;
 }
-.left_charts_row_title{
-
-font-weight: 800;
-font-size: 13px;
-color: #FFFFFF;
-line-height: 51px;
-position: absolute;
-left: 30px;
-top: 0;
-height: 100%;
+.left_charts_row_title {
+  font-weight: 800;
+  font-size: 13px;
+  color: #ffffff;
+  line-height: 51px;
+  position: absolute;
+  left: 30px;
+  top: 0;
+  height: 100%;
 }
 
 .header_view {
@@ -1028,7 +1029,7 @@ height: 100%;
   height: 300px;
 }
 .list_header_view {
-  margin: 0 100px;
+  margin: 0 20px;
   position: relative;
   background-color: #fffb002d;
   color: #fffb00;
@@ -1041,23 +1042,29 @@ height: 100%;
 .list_row_one_view {
   position: absolute;
   left: 0;
-  width: calc(100% / 3);
+  width: calc(100% / 3 - 100px);
   height: 100%;
+  /* background-color: #fffb00; */
 }
 .list_row_two_view {
   position: absolute;
-  left: calc(100% / 3);
-  width: calc(100% / 3);
+  left: calc(100% / 3 - 100px);
+  width: calc(100% / 3 - 50px);
   height: 100%;
+  /* background-color: rebeccapurple; */
 }
 .list_row_three_view {
   position: absolute;
   right: 0;
-  width: calc(100% / 3);
+  width: calc(100% / 3 + 150px);
   height: 100%;
+  white-space: nowrap; /* 确保文本在一行内显示 */
+  overflow: hidden; /* 隐藏超出容器的文本 */
+  text-overflow: ellipsis; /* 使用省略号表示被截断的文本 */
+  /* background-color: aqua; */
 }
 .list_row {
-  margin: 0 100px;
+  margin: 0 20px;
   position: relative;
   height: 50px;
   line-height: 50px;
@@ -1068,7 +1075,7 @@ height: 100%;
   background: #07b9ea18;
 }
 .list_row_s {
-  margin: 0 100px;
+  margin: 0 20px;
   position: relative;
   height: 50px;
   line-height: 50px;
